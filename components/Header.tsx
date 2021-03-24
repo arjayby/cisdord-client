@@ -1,5 +1,6 @@
 import React from "react";
-import { Box, Link, Kbd, Button } from "@chakra-ui/react";
+import { Box, Kbd, Button } from "@chakra-ui/react";
+import Link from "next/link";
 
 const Header: React.FC = () => {
   return (
@@ -10,13 +11,27 @@ const Header: React.FC = () => {
       alignItems="center"
     >
       <Link href="/">
-        <Kbd fontSize="4xl">cisdord</Kbd>
+        <Kbd as="a" href="/" fontSize="4xl">
+          cisdord
+        </Kbd>
       </Link>
       <Box as="nav">
-        <Button colorScheme="brand" variant="ghost" mr="8">
-          Channels
-        </Button>
-        <Button colorScheme="brand">Login</Button>
+        <Link href="/channels">
+          <Button
+            as="a"
+            href="/channels"
+            colorScheme="brand"
+            variant="ghost"
+            mr="8"
+          >
+            Channels
+          </Button>
+        </Link>
+        <Link href="/login">
+          <Button as="a" href="/login" colorScheme="brand">
+            Login
+          </Button>
+        </Link>
       </Box>
     </Box>
   );
