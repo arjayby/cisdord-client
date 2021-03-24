@@ -27,7 +27,7 @@ const Channels: React.FC = () => {
       <Box py="10">
         <Grid templateColumns="repeat(3, 1fr)" gap={8}>
           {channels.map((channel) => (
-            <Link href={`/channels/${channel.shortId}`}>
+            <Link key={channel.id} href={`/channels/${channel.shortId}`}>
               <Box
                 as="a"
                 href={`/channels/${channel.shortId}`}
@@ -65,6 +65,7 @@ const Channels: React.FC = () => {
                 <Flex mt="10" wrap="wrap">
                   {["Tag 1", "Tag 2", "Tag 3"].map((tag) => (
                     <Badge
+                      key={tag}
                       variant="solid"
                       colorScheme="brand"
                       rounded="full"
