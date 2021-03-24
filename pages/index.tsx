@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Button,
-  Center,
-  Flex,
-  Heading,
-  Icon,
-  Image,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Icon, Image } from "@chakra-ui/react";
 import { TiSocialGithub } from "react-icons/ti";
 import Layout from "@components/Layout";
 
