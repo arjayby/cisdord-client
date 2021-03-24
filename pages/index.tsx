@@ -39,13 +39,9 @@ const Hero: React.FC = () => {
 
 const Home: React.FC = () => {
   return (
-    <Center>
-      <Box w="1260px">
-        <Layout>
-          <Hero />
-        </Layout>
-      </Box>
-    </Center>
+    <Layout>
+      <Hero />
+    </Layout>
   );
 };
 
