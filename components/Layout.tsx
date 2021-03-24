@@ -20,6 +20,7 @@ const Layout: React.FC<LayoutProps> = ({
       <Box w="1260px">
         <Box p="10" h="100vh" display="grid" gridTemplateRows="auto 1fr auto">
           <Head>
+            <title>{title}</title>
             <meta name="title" content={title} />
             <meta name="description" content={description} />
             <meta
