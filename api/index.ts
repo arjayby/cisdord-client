@@ -3,7 +3,7 @@ const feathers = require("@feathersjs/feathers");
 const socketio = require("@feathersjs/socketio-client");
 const auth = require("@feathersjs/authentication-client");
 
-const socket = io("localhost:3030");
+const socket = io("http://localhost:3030");
 const client = feathers();
 
 client.configure(socketio(socket));
