@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Badge, Box, Flex, Grid, Icon, Image, Text } from "@chakra-ui/react";
 import { BsFillPeopleFill } from "react-icons/bs";
 import Layout from "@components/Layout";
-import api from "@api/index";
+import api from "@api";
 import { ChannelType } from "types/channel";
 
 const Channels: React.FC<{ channels: ChannelType[] }> = ({ channels }) => {
