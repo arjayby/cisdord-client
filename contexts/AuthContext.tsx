@@ -1,6 +1,6 @@
-import api from "api";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { UserType } from "../types/user";
+import api from "api";
+import { UserType } from "types/user";
 
 const AuthContext = createContext<{ user: UserType | null }>({ user: null });
 
