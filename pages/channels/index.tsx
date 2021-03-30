@@ -45,7 +45,6 @@ const ChannelCard: React.FC<{ channel: ChannelType }> = ({ channel }) => {
         as="a"
         href={`/channels/${channel.shortId}`}
         p="5"
-        pb="0"
         key={channel.id}
         rounded="20px"
         boxShadow="xl"
@@ -55,9 +54,9 @@ const ChannelCard: React.FC<{ channel: ChannelType }> = ({ channel }) => {
           <ChannelMembers count={channel.membersCount} />
         </Flex>
         <ChannelName name={channel.name} />
-        <ChannelDescription description="" />
-        <Flex mt="10" wrap="wrap">
-          {["Tag 1", "Tag 2", "Tag 3"].map((tag) => (
+        <ChannelDescription description={channel.description} />
+        <Flex m="-1.5" mt="10" wrap="wrap">
+          {channel.tags.map((tag) => (
             <ChannelTag key={tag} tag={tag} />
           ))}
         </Flex>
@@ -94,9 +93,7 @@ const ChannelDescription: React.FC<{ description: string }> = ({
 }) => {
   return (
     <Text mt="3" color="#4A5568" fontSize="sm">
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto autem,
-      dolorum dicta sed, deleniti quae vel placeat maxime ab natus laboriosam
-      error soluta voluptatem aspernatur.
+      {description}
     </Text>
   );
 };
@@ -107,10 +104,9 @@ const ChannelTag: React.FC<{ tag: string }> = ({ tag }) => {
       variant="solid"
       colorScheme="brand"
       rounded="full"
-      px="3"
+      m="1.5"
+      px="2.5"
       py="1"
-      mr="3"
-      mb="5"
     >
       {tag}
     </Badge>

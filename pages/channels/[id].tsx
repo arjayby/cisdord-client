@@ -6,8 +6,6 @@ import Layout from "@components/Layout";
 import api from "@api";
 import { ChannelType } from "types/channel";
 
-const tags = ["Tag 1", "Tag 2", "Tag 3"];
-
 const Channel: React.FC<{ channel: ChannelType }> = ({ channel }) => {
   return (
     <Layout title={`${channel.name}'s Channel | cisdord `}>
@@ -15,10 +13,10 @@ const Channel: React.FC<{ channel: ChannelType }> = ({ channel }) => {
         <ChannelAvatar src="/images/avatar.jpg" />
         <ChannelMembers count={channel.membersCount} />
         <ChannelName name={channel.name} />
-        <ChannelDescription description="" />
-        <Flex mt="10" wrap="wrap">
-          {tags.map((tag, index) => (
-            <ChannelTag key={tag} tag={tag} index={index} />
+        <ChannelDescription description={channel.description} />
+        <Flex m="-1.5" mt="10" wrap="wrap">
+          {channel.tags.map((tag) => (
+            <ChannelTag key={tag} tag={tag} />
           ))}
         </Flex>
         <Button mt="20" isFullWidth maxW="350" colorScheme="brand">
@@ -56,29 +54,21 @@ const ChannelDescription: React.FC<{ description: string }> = ({
   description,
 }) => {
   return (
-    <Text mt="3" color="#4A5568" fontSize="sm" maxW="900">
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem maxime
-      nostrum animi dolore. Cupiditate iste fugit nam dolorem consequuntur,
-      necessitatibus iure odit, harum velit repudiandae quaerat minima dolores
-      quisquam eligendi autem inventore fugiat blanditiis enim quibusdam eos
-      iusto. Dolor distinctio, nemo alias quibusdam quas sunt praesentium
-      possimus incidunt excepturi unde!
+    <Text mt="3" color="#4A5568" fontSize="sm" maxW="900" textAlign="center">
+      {description}
     </Text>
   );
 };
 
-const ChannelTag: React.FC<{ tag: string; index: number }> = ({
-  tag,
-  index,
-}) => {
+const ChannelTag: React.FC<{ tag: string }> = ({ tag }) => {
   return (
     <Badge
       variant="solid"
       colorScheme="brand"
       rounded="full"
-      px="3"
+      m="1.5"
+      px="2.5"
       py="1"
-      mr={index !== tags.length - 1 ? "3" : undefined}
     >
       {tag}
     </Badge>
