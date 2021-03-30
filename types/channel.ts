@@ -3,6 +3,8 @@ export type ChannelType = {
   shortId: string;
   userId: string;
   name: string;
+  description: string;
+  tags: string[];
   membersCount: number;
   createdAt: Date;
   updatedAt: Date;
