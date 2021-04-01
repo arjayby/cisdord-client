@@ -9,13 +9,19 @@ const AuthProvider: React.FC = ({ children }) => {
 
   const reAuth = async () => {
     try {
-      const auth = await api.app.reAuthenticate();
-      setUser(auth.user);
+      api.app.reAuthenticate();
     } catch (e) {}
+  };
+
+  const authenticatedUserListener = () => {
+    api.app.on("authenticated", (auth) => {
+      setUser(auth.user);
+    });
   };
 
   useEffect(() => {
     reAuth();
+    authenticatedUserListener();
   }, []);
 
   return (
