@@ -1,4 +1,5 @@
 import React, { FormEvent, useRef, useState } from "react";
+import Link from "next/link";
 import Layout from "@components/Layout";
 import {
   Box,
@@ -111,6 +112,17 @@ const SignUp: React.FC = () => {
             </Button>
             <Text textAlign="center">or</Text>
             <Button>Sign up with Github</Button>
+            <Link href="/sign-in">
+              <Button
+                as="a"
+                href="/sign-in"
+                mt="5"
+                variant="ghost"
+                fontWeight="normal"
+              >
+                Already have an account? Sign in here.
+              </Button>
+            </Link>
           </SimpleGrid>
         </Box>
       </Box>
