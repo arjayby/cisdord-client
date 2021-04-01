@@ -9,7 +9,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
   const reAuth = async () => {
     try {
-      api.app.reAuthenticate();
+      await api.app.reAuthenticate();
     } catch (e) {}
   };
 
@@ -20,8 +20,8 @@ const AuthProvider: React.FC = ({ children }) => {
   };
 
   useEffect(() => {
-    reAuth();
     authenticatedUserListener();
+    reAuth();
   }, []);
 
   return (
