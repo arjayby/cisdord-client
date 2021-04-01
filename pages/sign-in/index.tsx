@@ -1,4 +1,5 @@
 import React, { FormEvent, useRef, useState } from "react";
+import Router from "next/router";
 import Link from "next/link";
 import Layout from "@components/Layout";
 import {
@@ -16,8 +17,15 @@ import {
   Text,
 } from "@chakra-ui/react";
 import api from "@api";
+import { useAuthContext } from "contexts/AuthContext";
 
 const SignIn: React.FC = () => {
+  const { user } = useAuthContext();
+
+  if (user) {
+    Router.replace("/channels/me");
+  }
+
   const usernameRef = useRef<HTMLInputElement>();
   const passwordRef = useRef<HTMLInputElement>();
 
