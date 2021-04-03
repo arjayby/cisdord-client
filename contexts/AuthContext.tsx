@@ -2,15 +2,21 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import api from "api";
 import { UserType } from "types/user";
 
-const AuthContext = createContext<{ user: UserType | null }>({ user: null });
+const AuthContext = createContext<
+  Partial<{ user: UserType | null; isLoading: boolean }>
+>({});
 
 const AuthProvider: React.FC = ({ children }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
 
   const reAuth = async () => {
     try {
       await api.app.reAuthenticate();
-    } catch (e) {}
+    } catch (e) {
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const authenticatedUserListener = () => {
@@ -25,7 +31,9 @@ const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, isLoading }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 
