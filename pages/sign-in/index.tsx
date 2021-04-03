@@ -1,7 +1,5 @@
 import React, { FormEvent, useRef, useState } from "react";
-import Router from "next/router";
 import Link from "next/link";
-import Layout from "@components/Layout";
 import {
   Alert,
   AlertIcon,
@@ -17,15 +15,10 @@ import {
   Text,
 } from "@chakra-ui/react";
 import api from "@api";
-import { useAuthContext } from "contexts/AuthContext";
+import Layout from "@components/Layout";
+import withAuth from "@components/withAuth";
 
 const SignIn: React.FC = () => {
-  const { user } = useAuthContext();
-
-  if (user) {
-    Router.replace("/channels/me");
-  }
-
   const usernameRef = useRef<HTMLInputElement>();
   const passwordRef = useRef<HTMLInputElement>();
 
@@ -122,4 +115,4 @@ const SignIn: React.FC = () => {
   );
 };
 
-export default SignIn;
+export default withAuth(SignIn, { isReverse: true });
