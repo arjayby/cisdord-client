@@ -16,6 +16,7 @@
     "@feathersjs/socketio-client": "^4.5.11",
     "framer-motion": "4",
     "next": "10.0.9",
+    "nprogress": "^0.2.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-icons": "^4.2.0",
