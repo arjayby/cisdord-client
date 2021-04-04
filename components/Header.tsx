@@ -50,7 +50,7 @@ const Header: React.FC = () => {
               variant="ghost"
               mr="4"
             >
-              Dashboard
+              Chats 💬
             </Button>
           </Link>
         )}
@@ -63,7 +63,7 @@ const Header: React.FC = () => {
             ml={user ? "4" : undefined}
             mr="8"
           >
-            Channels
+            Channels 📻
           </Button>
         </Link>
         {user ? (
