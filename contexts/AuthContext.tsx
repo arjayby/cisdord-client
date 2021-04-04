@@ -12,7 +12,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
   const reAuth = async () => {
     try {
-      await api.app.reAuthenticate();
+      return await api.app.reAuthenticate();
     } catch (e) {
     } finally {
       setIsLoading(false);
@@ -20,9 +20,28 @@ const AuthProvider: React.FC = ({ children }) => {
   };
 
   const authenticatedUserListener = () => {
-    api.app.on("authenticated", (auth) => {
+    api.app.on("login", (auth) => {
       setUser(auth.user);
     });
+
+    api.app.on("logout", () => {
+      setUser(null);
+    });
+
+    // Event listener for other tabs when 'cisdord-auth' key in localStorage changes
+    window.onstorage = async (event) => {
+      if (event.key === "cisdord-auth") {
+        if (event.newValue === null) {
+          // No jwt token in localStorage. Not authenticated.
+          setUser(null);
+        } else {
+          const auth = await reAuth();
+          // Rerender again by setting the authenticated user
+          // app.on('login') event listener does not always fire when in another tab
+          setUser(auth.user);
+        }
+      }
+    };
   };
 
   useEffect(() => {
