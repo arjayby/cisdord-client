@@ -71,7 +71,7 @@ const Header: React.FC = () => {
             <MenuButton
               as={Button}
               variant="ghost"
-              rightIcon={<Icon as={IoChevronDown} color="brand.400" />}
+              rightIcon={<Icon as={IoChevronDown} color="brand.500" />}
             >
               <Avatar size="sm" name={user.name} />
             </MenuButton>

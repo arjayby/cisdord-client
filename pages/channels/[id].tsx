@@ -34,7 +34,7 @@ const ChannelAvatar: React.FC<{ src: string }> = ({ src }) => {
 const ChannelMembers: React.FC<{ count: number }> = ({ count }) => {
   return (
     <Flex mt="8" align="center">
-      <Icon as={BsFillPeopleFill} color="brand.400" />
+      <Icon as={BsFillPeopleFill} color="brand.500" />
       <Text ml="5" fontWeight="600">
         {count}
       </Text>
