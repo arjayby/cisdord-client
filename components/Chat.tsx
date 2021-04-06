@@ -1,19 +1,11 @@
 import React, { FormEvent, useRef } from "react";
-import {
-  Box,
-  Button,
-  Flex,
-  Grid,
-  Icon,
-  Text,
-  Textarea,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Icon, Text, Textarea } from "@chakra-ui/react";
 import { BsFillPeopleFill } from "react-icons/bs";
+import Messages from "./Messages";
 import { formatDistanceToNow } from "date-fns";
 import { UserType } from "types/user";
 import { ChannelType } from "types/channel";
 import { MessageType } from "types/message";
-import Message from "./Message";
 
 interface ChatProps {
   user: UserType;
@@ -59,15 +51,7 @@ const Chat: React.FC<ChatProps> = ({
           </Flex>
         </Flex>
         <Box my="5" flex={1}>
-          <Grid row={1} gap={3}>
-            {messages.map((message) => (
-              <Message
-                key={`message-${message.id}`}
-                user={user}
-                message={message}
-              />
-            ))}
-          </Grid>
+          <Messages user={user} messages={messages} />
         </Box>
         <Flex as="form" onSubmit={handleSendMessage}>
           <Textarea
@@ -76,6 +60,7 @@ const Chat: React.FC<ChatProps> = ({
             variant="outline"
             resize="none"
             rows={1}
+            maxLength={255}
             size="sm"
             mr="5"
           />
