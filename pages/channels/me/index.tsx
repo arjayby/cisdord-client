@@ -1,105 +1,124 @@
-import React from "react";
-import {
-  Avatar,
-  Box,
-  Button,
-  Divider,
-  Flex,
-  Icon,
-  IconButton,
-  Input,
-  SimpleGrid,
-  Text,
-} from "@chakra-ui/react";
-import { MdAdd } from "react-icons/md";
-import { BsFillPeopleFill } from "react-icons/bs";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { Box, Center, Divider, Flex, Text } from "@chakra-ui/react";
 import Layout from "@components/Layout";
+import UserChannels from "@components/UserChannels";
+import Chat from "@components/Chat";
 import withAuth from "@components/withAuth";
+import { useAuthContext } from "contexts/AuthContext";
+import { ChannelType } from "types/channel";
+import { MessageType } from "types/message";
+import api from "@api";
 
 const Me: React.FC = () => {
+  const router = useRouter();
+  const { user } = useAuthContext();
+
+  const [channels, setChannels] = useState<ChannelType[]>([]);
+  const [selectedChannel, setSelectedChannel] = useState<ChannelType>();
+  const [selectedChannelMessages, setSelectedChannelMessages] = useState<
+    MessageType[]
+  >([]);
+
+  const getUserChannels = async () => {
+    const members = await api.members.find({
+      query: {
+        userId: user.id,
+      },
+    });
+
+    const channels = await api.channels.find({
+      query: {
+        id: {
+          $in: members.data.map((member) => member.channelId),
+        },
+      },
+    });
+
+    setChannels(channels.data);
+  };
+
+  const getChannelMessages = async () => {
+    const data = await api.messages.find({
+      query: {
+        $sort: {
+          createdAt: -1,
+        },
+        channelId: selectedChannel.id,
+      },
+    });
+    setSelectedChannelMessages(data.data);
+  };
+
+  const setSelectedChannelFromRouterQuery = () => {
+    const c = router.query.c as string;
+    const channel = channels.find((channel) => channel.shortId === c);
+    setSelectedChannel(channel);
+  };
+
+  useEffect(() => {
+    getUserChannels();
+  }, []);
+
+  useEffect(() => {
+    if (selectedChannel) {
+      getChannelMessages();
+    }
+  }, [selectedChannel]);
+
+  useEffect(() => {
+    if (router.query.c) {
+      setSelectedChannelFromRouterQuery();
+    } else {
+      setSelectedChannel(undefined);
+    }
+  }, [channels, router.query.c]);
+
+  const handleRoutePushToChannels = (shortId: string) => {
+    if (selectedChannel?.shortId !== shortId) {
+      router.push(`/channels/me?c=${shortId}`);
+    }
+  };
+
+  const handleSendMessage = async (message: string) => {
+    try {
+      await api.messages.create({
+        channelId: selectedChannel.id,
+        body: message,
+      });
+    } catch (e) {
+      console.error("Send message failed 😠", e);
+    }
+  };
+
   return (
     <Layout title="cisdord">
       <Box py="10" h="100%">
-        <Flex h="inherit" border="1px" borderColor="gray.100" borderRadius="25">
-          <Box p="4" w="64px">
-            <SimpleGrid dir="column" gap={4}>
-              <Avatar name="1" src="/images/avatar.jpg" />
-              <Avatar name="2" src="/images/avatar.jpg" />
-              <Avatar name="3" src="/images/avatar.jpg" />
-              <Avatar name="3" src="/images/avatar.jpg" />
-              <Avatar name="3" src="/images/avatar.jpg" />
-              <Divider />
-              <IconButton
-                aria-label="Add channel"
-                colorScheme="brand"
-                size="lg"
-                isRound
-                icon={<Icon as={MdAdd} fontSize="xl" />}
-              />
-            </SimpleGrid>
-          </Box>
+        <Flex h="inherit">
+          <UserChannels
+            channels={channels}
+            selectedChannel={selectedChannel}
+            onClickChannel={handleRoutePushToChannels}
+          />
           <Divider orientation="vertical" mx="4" />
-          <Flex p="4" pl="-4" direction="column" flex={1}>
-            <Flex justify="space-between">
-              <Flex direction="column">
-                <Text fontSize="xl">League of Legends ⚔</Text>
-                <Text color="gray.500" fontSize="xs">
-                  24 minutes ago
+          <Center w="100%">
+            {selectedChannel ? (
+              <Chat
+                user={user}
+                channel={selectedChannel}
+                messages={selectedChannelMessages}
+                onSendMessage={handleSendMessage}
+              />
+            ) : (
+              <Flex direction="column" textAlign="center">
+                <Text>
+                  {channels.length > 0
+                    ? "Select a channel to open conversation"
+                    : "Join the other channel or create your own"}
                 </Text>
               </Flex>
-              <Flex align="center">
-                <Icon as={BsFillPeopleFill} color="brand.500" />
-                <Text ml="4" fontWeight="600">
-                  420,666
-                </Text>
-              </Flex>
-            </Flex>
-            <Box my="5" flex={1}>
-              <Flex direction="column">
-                <Flex>
-                  <Avatar alignSelf="flex-end" name="user 1" size="sm" mr="2" />
-                  <Text
-                    p="4"
-                    bgColor="gray.200"
-                    borderRadius="16px 16px 16px 0"
-                    fontSize="sm"
-                  >
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Iure, ipsum!
-                  </Text>
-                </Flex>
-                <Flex alignSelf="flex-end">
-                  <Text
-                    p="4"
-                    bgColor="brand.500"
-                    color="white"
-                    borderRadius="16px 16px 0 16px"
-                    fontSize="sm"
-                  >
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Iure, ipsum!
-                  </Text>
-                  <Avatar alignSelf="flex-end" ml="2" name="user 2" size="sm" />
-                </Flex>
-                <Flex>
-                  <Avatar alignSelf="flex-end" name="user 3" size="sm" mr="2" />
-                  <Text
-                    p="4"
-                    bgColor="gray.200"
-                    borderRadius="16px 16px 16px 0"
-                    fontSize="sm"
-                  >
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Iure, ipsum!
-                  </Text>
-                </Flex>
-              </Flex>
-            </Box>
-            <Flex>
-              <Input variant="outline" placeholder="Message" mr="5" />
-              <Button colorScheme="brand">Send 🕊</Button>
-            </Flex>
-          </Flex>
+            )}
+          </Center>
         </Flex>
       </Box>
     </Layout>
