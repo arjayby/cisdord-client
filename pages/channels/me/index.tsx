@@ -45,6 +45,7 @@ const Me: React.FC = () => {
           createdAt: -1,
         },
         channelId: selectedChannel.id,
+        include: true,
       },
     });
     setSelectedChannelMessages(data.data);
