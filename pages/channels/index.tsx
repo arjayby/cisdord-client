@@ -1,11 +1,14 @@
 import React from "react";
-import { GetStaticProps } from "next";
 import Link from "next/link";
-import { Badge, Box, Flex, Grid, Icon, Image, Text } from "@chakra-ui/react";
-import { BsFillPeopleFill } from "react-icons/bs";
+import { GetStaticProps } from "next";
+import { Avatar, Box, Button, Divider, Flex, Grid } from "@chakra-ui/react";
 import Layout from "@components/Layout";
-import api from "@api";
+import ChannelName from "@components/ChannelName";
+import ChannelDescription from "@components/ChannelDescription";
+import ChannelMembers from "@components/ChannelMembers";
+import ChannelTags from "@components/ChannelTags";
 import { ChannelType } from "types/channel";
+import api from "@api";
 
 const Channels: React.FC<{ channels: ChannelType[] }> = ({ channels }) => {
   return (
@@ -45,71 +48,29 @@ const ChannelCard: React.FC<{ channel: ChannelType }> = ({ channel }) => {
         as="a"
         href={`/channels/${channel.shortId}`}
         p="5"
-        key={channel.id}
         rounded="20px"
         boxShadow="xl"
       >
         <Flex justify="space-between" align="center">
-          <ChannelAvatar src="/images/avatar.jpg" />
+          <Avatar size="xl" name={channel.name} />
           <ChannelMembers count={channel.membersCount} />
         </Flex>
+        <Box my="5" />
         <ChannelName name={channel.name} />
+        <Box my="3" />
         <ChannelDescription description={channel.description} />
-        <Flex m="-1.5" mt="10" wrap="wrap">
-          {channel.tags.map((tag) => (
-            <ChannelTag key={tag} tag={tag} />
-          ))}
+        <Box my="5" />
+        <ChannelTags tags={channel.tags} />
+        <Box my="5" />
+        <Divider />
+        <Box my="5" />
+        <Flex>
+          <Button isFullWidth>View</Button>
+          <Box mx="2" />
+          <Button isFullWidth>Join</Button>
         </Flex>
       </Box>
     </Link>
-  );
-};
-
-const ChannelAvatar: React.FC<{ src: string }> = ({ src }) => {
-  return <Image src={src} alt="avatar" h="80px" w="80px" rounded="50%" />;
-};
-
-const ChannelMembers: React.FC<{ count: number }> = ({ count }) => {
-  return (
-    <Flex align="center">
-      <Icon as={BsFillPeopleFill} color="brand.500" />
-      <Text ml="5" fontWeight="600">
-        {count}
-      </Text>
-    </Flex>
-  );
-};
-
-const ChannelName: React.FC<{ name: string }> = ({ name }) => {
-  return (
-    <Text mt="5" fontSize="xl" fontWeight="600">
-      {name}
-    </Text>
-  );
-};
-
-const ChannelDescription: React.FC<{ description: string }> = ({
-  description,
-}) => {
-  return (
-    <Text mt="3" color="#4A5568" fontSize="sm">
-      {description}
-    </Text>
-  );
-};
-
-const ChannelTag: React.FC<{ tag: string }> = ({ tag }) => {
-  return (
-    <Badge
-      variant="solid"
-      colorScheme="brand"
-      rounded="full"
-      m="1.5"
-      px="2.5"
-      py="1"
-    >
-      {tag}
-    </Badge>
   );
 };
 
