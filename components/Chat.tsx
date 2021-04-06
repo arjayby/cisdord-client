@@ -1,6 +1,7 @@
 import React, { FormEvent, useRef } from "react";
-import { Box, Button, Flex, Icon, Text, Textarea } from "@chakra-ui/react";
-import { BsFillPeopleFill } from "react-icons/bs";
+import { Box, Button, Flex, Text, Textarea } from "@chakra-ui/react";
+import ChannelName from "./ChannelName";
+import ChannelMembers from "./ChannelMembers";
 import Messages from "./Messages";
 import { formatDistanceToNow } from "date-fns";
 import { UserType } from "types/user";
@@ -38,17 +39,12 @@ const Chat: React.FC<ChatProps> = ({
       <Flex p="4" pl="-4" direction="column" flex={1}>
         <Flex justify="space-between">
           <Flex direction="column">
-            <Text fontSize="xl">{channel.name}</Text>
+            <ChannelName name={channel.name} />
             <Text color="gray.500" fontSize="xs">
               {formatDistanceToNow(new Date(channel.updatedAt))}
             </Text>
           </Flex>
-          <Flex align="center">
-            <Icon as={BsFillPeopleFill} color="brand.500" />
-            <Text ml="4" fontWeight="600">
-              {channel.membersCount}
-            </Text>
-          </Flex>
+          <ChannelMembers count={channel.membersCount} />
         </Flex>
         <Box my="5" flex={1}>
           <Messages user={user} messages={messages} />
