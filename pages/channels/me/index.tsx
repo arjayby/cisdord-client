@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { Box, Center, Divider, Flex, Text } from "@chakra-ui/react";
 import Layout from "@components/Layout";
@@ -94,6 +95,9 @@ const Me: React.FC = () => {
 
   return (
     <Layout title="cisdord">
+      <Head>
+        <meta name="robots" content="noindex,nofollow" />
+      </Head>
       <Box py="10" h="100%">
         <Flex h="inherit">
           <UserChannels
