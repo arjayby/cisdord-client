@@ -14,4 +14,14 @@ export const theme = extendTheme({
       900: "#161433",
     },
   },
+  components: {
+    Popover: {
+      baseStyle: {
+        popper: {
+          width: "fit-content",
+          maxWidth: "fit-content",
+        },
+      },
+    },
+  },
 });
