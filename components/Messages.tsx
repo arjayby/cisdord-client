@@ -3,7 +3,8 @@ import { Grid, Text } from "@chakra-ui/react";
 import Message from "./Message";
 import { UserType } from "types/user";
 import { MessageType } from "types/message";
-import { groupMessages } from "utils";
+import { formatRelative } from "date-fns";
+import { locale, groupMessages } from "utils";
 
 interface MessagesProps {
   user: UserType;
@@ -19,7 +20,7 @@ const Messages: React.FC<MessagesProps> = ({ user, messages }) => {
         return (
           <Grid key={day} row={1} gap={3}>
             <Text fontSize="xs" textAlign="center" color="gray.500">
-              {day}
+              {formatRelative(new Date(day), new Date(), { locale })}
             </Text>
             {groupByDate[day].map((message, index) => (
               <Message
