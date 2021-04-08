@@ -11,7 +11,7 @@ export const groupMessages = (
     formatStr = "MMMM d, yyyy";
   }
   if (groupBy === "time") {
-    formatStr = "h:m aa";
+    formatStr = "h:mm aa";
   }
 
   return messages.reduce((accu, curr) => {
