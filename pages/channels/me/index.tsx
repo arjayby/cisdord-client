@@ -1,14 +1,30 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { Box, Center, Divider, Flex, Text } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  Button,
+  Flex,
+  Grid,
+  Icon,
+  IconButton,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  Text,
+} from "@chakra-ui/react";
 import Layout from "@components/Layout";
-import UserChannels from "@components/UserChannels";
 import Chat from "@components/Chat";
+import ChannelName from "@components/ChannelName";
+import ChannelDescription from "@components/ChannelDescription";
 import withAuth from "@components/withAuth";
+import { MdAdd, MdSearch } from "react-icons/md";
 import { useAuthContext } from "contexts/AuthContext";
 import { ChannelType } from "types/channel";
 import { MessageType } from "types/message";
+import { formatRelative } from "date-fns";
+import { locale } from "utils";
 import api from "@api";
 
 const Me: React.FC = () => {
@@ -110,13 +126,62 @@ const Me: React.FC = () => {
       </Head>
       <Box py="10" h="100%">
         <Flex h="inherit">
-          <UserChannels
-            channels={channels}
-            selectedChannel={selectedChannel}
-            onClickChannel={handleRoutePushToChannels}
-          />
-          <Divider orientation="vertical" mx="4" />
-          <Center w="100%">
+          <Box w="320px">
+            <InputGroup>
+              <InputLeftElement
+                pointerEvents="none"
+                children={<Icon color="gray.300" as={MdSearch} fontSize="xl" />}
+              />
+              <Input type="search" variant="filled" placeholder="Search" />
+            </InputGroup>
+            <Box my="7" />
+            <Grid gap={3}>
+              {channels.map((channel) => (
+                <Box
+                  key={`channel-${channel.id}`}
+                  as="button"
+                  onClick={() => handleRoutePushToChannels(channel.shortId)}
+                  p="5"
+                  bg="#F9F9F9"
+                  rounded="lg"
+                >
+                  <Flex>
+                    <Avatar name={channel.name} />
+                    <Box mx="2" />
+                    <Flex flex={1} direction="column">
+                      <Flex justify="space-between">
+                        <ChannelName
+                          name={channel.name}
+                          fontSize="md"
+                          fontWeight="semibold"
+                          maxWidth="160px"
+                          isTruncated
+                        />
+                        <Box mx="2" />
+                        <Text fontSize="xs" color="gray.500" isTruncated>
+                          {formatRelative(
+                            new Date(channel.updatedAt),
+                            new Date(),
+                            { locale }
+                          )}
+                        </Text>
+                      </Flex>
+                      <Box my="0.5" />
+                      <ChannelDescription
+                        description={channel.description}
+                        isTruncated
+                        fontSize="sm"
+                        maxW="180px"
+                      />
+                    </Flex>
+                  </Flex>
+                </Box>
+              ))}
+              <Button colorScheme="brand">Create 📻</Button>
+            </Grid>
+          </Box>
+          <Box mx="2" />
+          <Box flex={1}>
             {selectedChannel ? (
               <Chat
                 user={user}
@@ -125,15 +190,15 @@ const Me: React.FC = () => {
                 onSendMessage={handleSendMessage}
               />
             ) : (
-              <Flex direction="column" textAlign="center">
+              <Grid h="100%" placeItems="center">
                 <Text>
                   {channels.length > 0
                     ? "Select a channel to open conversation"
                     : "Join the other channel or create your own"}
                 </Text>
-              </Flex>
+              </Grid>
             )}
-          </Center>
+          </Box>
         </Flex>
       </Box>
     </Layout>

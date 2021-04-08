@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Text } from "@chakra-ui/react";
+import { Divider, Flex, Grid, Text } from "@chakra-ui/react";
 import Message from "./Message";
 import { UserType } from "types/user";
 import { MessageType } from "types/message";
@@ -18,16 +18,20 @@ const Messages: React.FC<MessagesProps> = ({ user, messages }) => {
     <>
       {Object.keys(groupByDate).map((day) => {
         return (
-          <Grid key={day} row={1} gap={3}>
-            <Text fontSize="xs" textAlign="center" color="gray.500">
-              {formatRelative(new Date(day), new Date(), { locale })}
-            </Text>
+          <Grid key={day} row={1} gap={3} p="5">
+            <Flex align="center">
+              <Divider />
+              <Text mx="3" fontSize="xs" textAlign="center" color="gray.500">
+                {formatRelative(new Date(day), new Date(), { locale })}
+              </Text>
+              <Divider />
+            </Flex>
             {groupByDate[day].map((message, index) => (
               <Message
                 key={`message-${message.id}`}
                 user={user}
                 message={message}
-                previousMessage={groupByDate[day][index - 1]}
+                nextMessage={groupByDate[day][index + 1]}
               />
             ))}
           </Grid>

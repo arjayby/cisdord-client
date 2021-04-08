@@ -4,6 +4,7 @@ import {
   Button,
   Flex,
   Grid,
+  IconButton,
   Popover,
   PopoverArrow,
   PopoverBody,
@@ -11,10 +12,10 @@ import {
   PopoverTrigger,
   Text,
 } from "@chakra-ui/react";
+import { MdMoreHoriz } from "react-icons/md";
 import { Picker } from "emoji-mart";
 import "emoji-mart/css/emoji-mart.css";
 import ChannelName from "./ChannelName";
-import ChannelMembers from "./ChannelMembers";
 import Messages from "./Messages";
 import { formatDistanceToNow } from "date-fns";
 import { UserType } from "types/user";
@@ -63,12 +64,13 @@ const Chat: React.FC<ChatProps> = ({
 
   return (
     <Grid
-      p="4"
-      pl="-4"
-      h="calc(100vh - 240px)"
+      flex={1}
+      p="5"
+      h="calc(100vh - 230px)"
       templateRows="auto 1fr auto"
       templateColumns="1fr"
-      flex={1}
+      bg="#F9F9F9"
+      rounded="lg"
     >
       <Flex justify="space-between">
         <Flex direction="column">
@@ -77,7 +79,11 @@ const Chat: React.FC<ChatProps> = ({
             {formatDistanceToNow(new Date(channel.updatedAt))}
           </Text>
         </Flex>
-        <ChannelMembers count={channel.membersCount} />
+        <IconButton
+          aria-label="More options"
+          icon={<MdMoreHoriz />}
+          variant="ghost"
+        />
       </Flex>
       <Box overflowY="auto" my="5" flex={1}>
         <Messages user={user} messages={reversedMessages} />

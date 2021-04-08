@@ -8,6 +8,7 @@ const ChatInput = React.forwardRef<
 >((props, ref) => {
   return (
     <Textarea
+      variant="filled"
       minH="unset"
       overflow="hidden"
       w="100%"

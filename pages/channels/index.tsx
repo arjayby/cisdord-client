@@ -43,34 +43,30 @@ export const getStaticProps: GetStaticProps = async () => {
 
 const ChannelCard: React.FC<{ channel: ChannelType }> = ({ channel }) => {
   return (
-    <Link href={`/channels/${channel.shortId}`}>
-      <Box
-        as="a"
-        href={`/channels/${channel.shortId}`}
-        p="5"
-        rounded="20px"
-        boxShadow="xl"
-      >
-        <Flex justify="space-between" align="center">
-          <Avatar size="xl" name={channel.name} />
-          <ChannelMembers count={channel.membersCount} />
-        </Flex>
-        <Box my="5" />
-        <ChannelName name={channel.name} />
-        <Box my="3" />
-        <ChannelDescription description={channel.description} />
-        <Box my="5" />
-        <ChannelTags tags={channel.tags} />
-        <Box my="5" />
-        <Divider />
-        <Box my="5" />
-        <Flex>
-          <Button isFullWidth>View</Button>
-          <Box mx="2" />
-          <Button isFullWidth>Join</Button>
-        </Flex>
-      </Box>
-    </Link>
+    <Box p="5" rounded="lg" boxShadow="sm">
+      <Flex justify="space-between" align="center">
+        <Avatar size="xl" name={channel.name} />
+        <ChannelMembers count={channel.membersCount} />
+      </Flex>
+      <Box my="5" />
+      <ChannelName name={channel.name} />
+      <Box my="3" />
+      <ChannelDescription description={channel.description} />
+      <Box my="5" />
+      <ChannelTags tags={channel.tags} />
+      <Box my="5" />
+      <Divider />
+      <Box my="5" />
+      <Flex>
+        <Link href={`/channels/${channel.shortId}`}>
+          <Button as="a" href={`/channels/${channel.shortId}`} isFullWidth>
+            View
+          </Button>
+        </Link>
+        <Box mx="2" />
+        <Button isFullWidth>Join</Button>
+      </Flex>
+    </Box>
   );
 };
 

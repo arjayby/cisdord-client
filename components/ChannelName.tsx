@@ -10,7 +10,7 @@ const ChannelName: React.FC<ChannelNameProps & TextProps> = ({
   ...props
 }) => {
   return (
-    <Text fontSize="xl" {...props}>
+    <Text fontSize="lg" fontWeight="semibold" {...props}>
       {name}
     </Text>
   );
