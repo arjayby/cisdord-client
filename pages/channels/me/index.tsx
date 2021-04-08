@@ -76,6 +76,16 @@ const Me: React.FC = () => {
     }
   }, [channels, router.query.c]);
 
+  useEffect(() => {
+    api.messages.on("created", (message) => {
+      setSelectedChannelMessages((prev) => [message, ...prev]);
+    });
+
+    return () => {
+      api.messages.removeListener("created");
+    };
+  }, []);
+
   const handleRoutePushToChannels = (shortId: string) => {
     if (selectedChannel?.shortId !== shortId) {
       router.push(`/channels/me?c=${shortId}`);
