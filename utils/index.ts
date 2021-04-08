@@ -3,11 +3,11 @@ import { enUS } from "date-fns/locale";
 import { MessageType } from "types/message";
 
 const formatRelativeLocale = {
-  lastWeek: "'Last' eeee",
+  lastWeek: "ccc",
   yesterday: "'Yesterday'",
   today: "'Today'",
   tomorrow: "'Tomorrow'",
-  nextWeek: "eeee",
+  nextWeek: "ccc",
   other: "MMMM d, yyyy",
 };
 
