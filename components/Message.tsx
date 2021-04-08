@@ -31,41 +31,43 @@ const Message: React.FC<MessageProps> = ({
   const isSameMessageBySameUser = previousMessage?.userId === message.userId;
   const isSameMessageTimeBySameUser =
     isSameMessageBySameUser &&
-    format(new Date(previousMessage?.createdAt), "MMMM d, yyyy h:m aa") ===
-      format(new Date(message.createdAt), "MMMM d, yyyy h:m aa");
+    format(new Date(previousMessage?.createdAt), "MMMM d, yyyy h:mm aa") ===
+      format(new Date(message.createdAt), "MMMM d, yyyy h:mm aa");
 
   return (
     <Flex direction={isMe ? "row-reverse" : "row"}>
-      <Box minW="40px">
-        {!isMe && !isSameMessageBySameUser && (
-          <Popover placement="right">
-            <PopoverTrigger>
-              <Avatar
-                name={message.user.name}
-                size="sm"
-                _hover={{ cursor: "pointer" }}
-              />
-            </PopoverTrigger>
-            <PopoverContent>
-              <PopoverArrow />
-              <PopoverCloseButton />
-              <PopoverHeader>
-                {message.user.name}{" "}
-                <Text fontSize="sm" color="gray.500">
-                  @{message.user.username}
-                </Text>
-              </PopoverHeader>
-              <PopoverBody>
-                I was created{" "}
-                {formatDistanceToNow(new Date(message.user.createdAt), {
-                  addSuffix: true,
-                })}
-                .
-              </PopoverBody>
-            </PopoverContent>
-          </Popover>
-        )}
-      </Box>
+      {!isMe && (
+        <Box minW="40px">
+          {!isSameMessageTimeBySameUser && (
+            <Popover placement="right">
+              <PopoverTrigger>
+                <Avatar
+                  name={message.user.name}
+                  size="sm"
+                  _hover={{ cursor: "pointer" }}
+                />
+              </PopoverTrigger>
+              <PopoverContent>
+                <PopoverArrow />
+                <PopoverCloseButton />
+                <PopoverHeader>
+                  {message.user.name}{" "}
+                  <Text fontSize="sm" color="gray.500">
+                    @{message.user.username}
+                  </Text>
+                </PopoverHeader>
+                <PopoverBody>
+                  I was created{" "}
+                  {formatDistanceToNow(new Date(message.user.createdAt), {
+                    addSuffix: true,
+                  })}
+                  .
+                </PopoverBody>
+              </PopoverContent>
+            </Popover>
+          )}
+        </Box>
+      )}
       <Flex
         maxW="80%"
         direction="column"
@@ -74,7 +76,7 @@ const Message: React.FC<MessageProps> = ({
         {!isSameMessageTimeBySameUser && (
           <Text fontSize="xs" color="gray.500">
             {isMe ? "You" : message.user.name} //{" "}
-            {format(new Date(message.createdAt), "h:m aa")}
+            {format(new Date(message.createdAt), "h:mm aa")}
           </Text>
         )}
         <Text
