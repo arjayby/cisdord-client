@@ -1,5 +1,6 @@
 import api from "api";
 import { FindMessagesResponseType } from "types/apiResponse";
+import { MessageType } from "types/message";
 
 export const getMessagesByChannelId = async (
   channelId: number,
@@ -21,4 +22,16 @@ export const getMessagesByChannelId = async (
   });
 
   return messages;
+};
+
+export const createMessage = async (
+  channelId: number,
+  body: string
+): Promise<MessageType> => {
+  const message = await api.messages.create({
+    channelId,
+    body,
+  });
+
+  return message;
 };
