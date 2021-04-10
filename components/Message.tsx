@@ -8,19 +8,19 @@ import PopoverAvatar from "./PopoverAvatar";
 interface MessageProps {
   user: UserType;
   message: MessageType;
-  nextMessage?: MessageType;
+  previousMessage?: MessageType;
 }
 
 const Message: React.FC<MessageProps> = ({
   user,
   message,
-  nextMessage = {},
+  previousMessage = {},
 }) => {
   const isMe = user.id === message.userId;
-  const isSameUserMessage = nextMessage?.userId === message.userId;
+  const isSameUserMessage = previousMessage?.userId === message.userId;
   const isSameTimeMessage =
-    nextMessage.createdAt &&
-    format(new Date(nextMessage.createdAt), "MMMM d, yyyy h:mm aa") ===
+    previousMessage.createdAt &&
+    format(new Date(previousMessage.createdAt), "MMMM d, yyyy h:mm aa") ===
       format(new Date(message.createdAt), "MMMM d, yyyy h:mm aa");
   const isSameUserAndTimeMessage = isSameUserMessage && isSameTimeMessage;
 
@@ -29,7 +29,7 @@ const Message: React.FC<MessageProps> = ({
       {!isSameUserAndTimeMessage ? (
         <PopoverAvatar user={message.user} />
       ) : (
-        <Box w="48px" />
+        <Box minW="48px" />
       )}
       <Box mx="1" />
       <Flex direction="column" align={isMe ? "flex-end" : "flex-start"}>

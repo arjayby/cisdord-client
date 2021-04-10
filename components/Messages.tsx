@@ -31,7 +31,7 @@ const Messages: React.FC<MessagesProps> = ({ user, messages }) => {
                 key={`message-${message.id}`}
                 user={user}
                 message={message}
-                nextMessage={groupByDate[day][index + 1]}
+                previousMessage={groupByDate[day][index - 1]}
               />
             ))}
           </Grid>
