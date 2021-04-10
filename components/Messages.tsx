@@ -4,7 +4,8 @@ import Message from "./Message";
 import { UserType } from "types/user";
 import { MessageType } from "types/message";
 import { formatRelative } from "date-fns";
-import { locale, groupMessages } from "utils";
+import { groupMessages } from "utils";
+import { locale } from "utils/date";
 
 interface MessagesProps {
   user: UserType;

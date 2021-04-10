@@ -1,20 +1,5 @@
 import { format } from "date-fns";
-import { enUS } from "date-fns/locale";
 import { MessageType } from "types/message";
-
-const formatRelativeLocale = {
-  lastWeek: "ccc",
-  yesterday: "'Yesterday'",
-  today: "'Today'",
-  tomorrow: "'Tomorrow'",
-  nextWeek: "ccc",
-  other: "MMMM d, yyyy",
-};
-
-export const locale: Locale = {
-  ...enUS,
-  formatRelative: (token) => formatRelativeLocale[token],
-};
 
 export const groupMessages = (
   messages: MessageType[],
