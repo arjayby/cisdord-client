@@ -8,7 +8,6 @@ import {
   Flex,
   Grid,
   Icon,
-  IconButton,
   Input,
   InputGroup,
   InputLeftElement,
@@ -19,7 +18,7 @@ import Chat from "@components/Chat";
 import ChannelName from "@components/ChannelName";
 import ChannelDescription from "@components/ChannelDescription";
 import withAuth from "@components/withAuth";
-import { MdAdd, MdSearch } from "react-icons/md";
+import { MdSearch } from "react-icons/md";
 import { useAuthContext } from "contexts/AuthContext";
 import { ChannelType } from "types/channel";
 import { MessageType } from "types/message";
@@ -142,7 +141,9 @@ const Me: React.FC = () => {
                   as="button"
                   onClick={() => handleRoutePushToChannels(channel.shortId)}
                   p="5"
-                  bg="#F9F9F9"
+                  bg={
+                    channel.id === selectedChannel.id ? "brand.50" : "#f9f9f9"
+                  }
                   rounded="lg"
                 >
                   <Flex>
