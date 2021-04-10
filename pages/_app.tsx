@@ -7,6 +7,7 @@ import "nprogress/nprogress.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { theme } from "@theme";
 import AuthProvider from "contexts/AuthContext";
+import ChatsProvider from "contexts/ChatsContext";
 
 NProgress.configure({ showSpinner: false });
 
@@ -18,7 +19,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
       <AuthProvider>
-        <Component {...pageProps} />
+        <ChatsProvider>
+          <Component {...pageProps} />
+        </ChatsProvider>
       </AuthProvider>
     </ChakraProvider>
   );
