@@ -8,7 +8,7 @@ import ChannelDescription from "@components/ChannelDescription";
 import ChannelMembers from "@components/ChannelMembers";
 import ChannelTags from "@components/ChannelTags";
 import { ChannelType } from "types/channel";
-import api from "@api";
+import api from "api";
 
 const Channels: React.FC<{ channels: ChannelType[] }> = ({ channels }) => {
   return (

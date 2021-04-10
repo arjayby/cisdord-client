@@ -4,7 +4,6 @@
     "paths": {
       "@components/*": ["components/*"],
       "@theme": ["theme"],
-      "@api": ["api"],
     },
     "target": "es5",
     "lib": [

@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import Layout from "@components/Layout";
 import withAuth from "@components/withAuth";
-import api from "@api";
+import api from "api";
 
 const SignUp: React.FC = () => {
   const nameRef = useRef<HTMLInputElement>();

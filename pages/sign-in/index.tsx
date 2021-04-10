@@ -14,7 +14,7 @@ import {
   SimpleGrid,
   Text,
 } from "@chakra-ui/react";
-import api from "@api";
+import api from "api";
 import Layout from "@components/Layout";
 import withAuth from "@components/withAuth";
 

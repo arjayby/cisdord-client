@@ -19,7 +19,7 @@ import {
   IoStatsChartOutline,
 } from "react-icons/io5";
 import { useAuthContext } from "contexts/AuthContext";
-import api from "@api";
+import api from "api";
 
 const Header: React.FC = () => {
   const { user } = useAuthContext();
