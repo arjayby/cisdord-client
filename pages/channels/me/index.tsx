@@ -68,8 +68,8 @@ const Me: React.FC = () => {
         <meta name="robots" content="noindex,nofollow" />
       </Head>
       <Box py="10" h="100%">
-        <Flex h="inherit">
-          <Box w="320px">
+        <Grid h="inherit" gap={5} templateColumns="auto 1fr">
+          <Grid w="320px" gap={5} templateRows="auto auto 1fr">
             <InputGroup>
               <InputLeftElement
                 pointerEvents="none"
@@ -77,7 +77,6 @@ const Me: React.FC = () => {
               />
               <Input type="search" variant="filled" placeholder="Search" />
             </InputGroup>
-            <Box my="7" />
             <Grid gap={3}>
               {chats.map(({ channel, messages }) => (
                 <Box
@@ -129,10 +128,9 @@ const Me: React.FC = () => {
                   </Flex>
                 </Box>
               ))}
-              <Button colorScheme="brand">Create 📻</Button>
             </Grid>
-          </Box>
-          <Box mx="2" />
+            <Button colorScheme="brand">Create 📻</Button>
+          </Grid>
           <Box flex={1}>
             {selectedChat ? (
               <Chat
@@ -151,7 +149,7 @@ const Me: React.FC = () => {
               </Grid>
             )}
           </Box>
-        </Flex>
+        </Grid>
       </Box>
     </Layout>
   );
