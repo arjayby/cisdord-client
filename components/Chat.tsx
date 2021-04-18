@@ -89,7 +89,7 @@ const Chat: React.FC<ChatProps> = ({
         <Messages user={user} messages={reversedMessages} />
       </Box>
       <Grid
-        gap={2}
+        gap={3}
         templateColumns="auto 1fr auto"
         as="form"
         onSubmit={handleSendMessage}
