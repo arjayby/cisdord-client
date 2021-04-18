@@ -22,7 +22,7 @@ import { MdSearch } from "react-icons/md";
 import { useAuthContext } from "contexts/AuthContext";
 import { useChatsContext } from "contexts/ChatsContext";
 import { ChatType } from "types/chat";
-import { getDayName } from "utils/date";
+import { formatToShortDate } from "utils/date";
 import { createMessage } from "api/messages";
 
 const Me: React.FC = () => {
@@ -99,12 +99,12 @@ const Me: React.FC = () => {
                           name={channel.name}
                           fontSize="md"
                           fontWeight="semibold"
-                          maxWidth="160px"
+                          maxWidth="150px"
                           isTruncated
                         />
                         <Box mx="2" />
                         <Text fontSize="xs" color="gray.500" isTruncated>
-                          {getDayName(channel.updatedAt)}
+                          {formatToShortDate(channel.updatedAt)}
                         </Text>
                       </Flex>
                       <Box my="0.5" />

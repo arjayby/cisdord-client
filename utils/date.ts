@@ -1,13 +1,22 @@
 import { formatRelative } from "date-fns";
 import { enUS } from "date-fns/locale";
 
-const formatRelativeLocale = {
+export const formatRelativeLocale = {
   lastWeek: "cccc",
   yesterday: "'Yesterday'",
   today: "'Today'",
   tomorrow: "'Tomorrow'",
   nextWeek: "cccc",
   other: "MMMM d, yyyy",
+};
+
+export const formatRelativeLocaleShortDate = {
+  lastWeek: "cccc",
+  yesterday: "cccc",
+  today: "'Today'",
+  tomorrow: "cccc",
+  nextWeek: "cccc",
+  other: "M/d/yy",
 };
 
 export const week = [
@@ -25,7 +34,12 @@ export const locale: Locale = {
   formatRelative: (token) => formatRelativeLocale[token],
 };
 
-export const getDayName = (dateString: string) => {
+export const formatToShortDate = (dateString: string) => {
+  const locale: Locale = {
+    ...enUS,
+    formatRelative: (token) => formatRelativeLocaleShortDate[token],
+  };
+
   const format = formatRelative(new Date(dateString), new Date(), { locale });
 
   if (week.includes(format)) {

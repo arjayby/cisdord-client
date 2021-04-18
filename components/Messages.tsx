@@ -22,7 +22,13 @@ const Messages: React.FC<MessagesProps> = ({ user, messages }) => {
           <Grid key={day} row={1} gap={3} p="5">
             <Flex align="center">
               <Divider />
-              <Text mx="3" fontSize="xs" textAlign="center" color="gray.500">
+              <Text
+                mx="3"
+                fontSize="xs"
+                textAlign="center"
+                whiteSpace="nowrap"
+                color="gray.500"
+              >
                 {formatRelative(new Date(day), new Date(), { locale })}
               </Text>
               <Divider />
