@@ -1,4 +1,4 @@
-import React, { FormEvent, useRef } from "react";
+import React, { FormEvent, useEffect, useRef } from "react";
 import {
   Box,
   Button,
@@ -22,6 +22,7 @@ import { UserType } from "types/user";
 import { ChannelType } from "types/channel";
 import { MessageType } from "types/message";
 import ChatInput from "./ChatInput";
+import { useDidMountEffect } from "hooks/useDidMountEffect";
 
 interface ChatProps {
   user: UserType;
@@ -37,6 +38,15 @@ const Chat: React.FC<ChatProps> = ({
   onSendMessage = () => {},
 }) => {
   const messageRef = useRef<HTMLTextAreaElement>();
+  const scrollRef = useRef<HTMLDivElement>();
+
+  useEffect(() => {
+    scrollRef.current.scrollIntoView();
+  }, [channel]);
+
+  useDidMountEffect(() => {
+    scrollRef.current.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   const sendMessage = (e: FormEvent) => {
     e.preventDefault();
@@ -87,6 +97,7 @@ const Chat: React.FC<ChatProps> = ({
       </Flex>
       <Box overflowY="auto" my="5" flex={1}>
         <Messages user={user} messages={reversedMessages} />
+        <Box ref={scrollRef} />
       </Box>
       <Grid
         gap={3}
