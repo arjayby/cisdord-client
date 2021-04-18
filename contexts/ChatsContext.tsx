@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { ChatType } from "types/chat";
 import { MessageType } from "types/message";
+import { UserType } from "types/user";
 import { useAuthContext } from "./AuthContext";
 import api from "api";
 import { getChannelsByUserId } from "api/channels";
@@ -12,7 +13,7 @@ const ChatsProvider: React.FC = ({ children }) => {
   const { user } = useAuthContext();
   const [chats, setChats] = useState<ChatType[]>([]);
 
-  const initialize = async (user) => {
+  const initialize = async (user: UserType) => {
     const channels = await getChannelsByUserId(user.id);
 
     const messages = await Promise.all(
