@@ -22,7 +22,7 @@ import { MdSearch } from "react-icons/md";
 import { useAuthContext } from "contexts/AuthContext";
 import { useChatsContext } from "contexts/ChatsContext";
 import { ChatType } from "types/chat";
-import { formatToShortDate } from "utils/date";
+import { formatToShortDate, week } from "utils/date";
 import { createMessage } from "api/messages";
 
 const Me: React.FC = () => {
@@ -101,7 +101,15 @@ const Me: React.FC = () => {
                           name={channel.name}
                           fontSize="md"
                           fontWeight="semibold"
-                          maxWidth="150px"
+                          maxWidth={
+                            week.some(
+                              (day) =>
+                                day.substring(0, 3) ===
+                                formatToShortDate(channel.updatedAt)
+                            )
+                              ? "185px"
+                              : "150px"
+                          }
                           isTruncated
                         />
                         <Box mx="2" />
