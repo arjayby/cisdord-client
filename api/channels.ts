@@ -15,6 +15,9 @@ export const getChannelsByUserId = async (
   const channels = await api.channels.find({
     query: {
       $limit: limit,
+      $sort: {
+        updatedAt: -1,
+      },
       id: {
         $in: members.data.map((member) => member.channelId),
       },
