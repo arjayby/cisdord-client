@@ -88,17 +88,12 @@ const Chat: React.FC<ChatProps> = ({
       <Box overflowY="auto" my="5" flex={1}>
         <Messages user={user} messages={reversedMessages} />
       </Box>
-      <Flex w="100%" as="form" onSubmit={handleSendMessage}>
-        <ChatInput
-          ml="0.5"
-          mb="0.5"
-          ref={messageRef}
-          maxRows={5}
-          placeholder="Message"
-          minH="40px"
-          onKeyDown={handleChatInputKeyDown}
-        />
-        <Box mx="2" />
+      <Grid
+        gap={2}
+        templateColumns="auto 1fr auto"
+        as="form"
+        onSubmit={handleSendMessage}
+      >
         <Popover>
           <PopoverTrigger>
             <Button>😀</Button>
@@ -110,11 +105,17 @@ const Chat: React.FC<ChatProps> = ({
             </PopoverBody>
           </PopoverContent>
         </Popover>
-        <Box mx="2" />
+        <ChatInput
+          ref={messageRef}
+          maxRows={5}
+          placeholder="Message"
+          minH="40px"
+          onKeyDown={handleChatInputKeyDown}
+        />
         <Button colorScheme="brand" type="submit">
           Send 🕊
         </Button>
-      </Flex>
+      </Grid>
     </Grid>
   );
 };
