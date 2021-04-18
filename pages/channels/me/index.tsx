@@ -33,22 +33,24 @@ const Me: React.FC = () => {
   const [selectedChat, setSelectedChat] = useState<ChatType>();
 
   const setSelectedChannelFromRouterQuery = () => {
-    const c = router.query.c as string;
-    const chat = chats.find((chat) => chat.channel.shortId === c);
+    const chatShortIdQuery = router.query.chat as string;
+    const chat = chats.find(
+      (chat) => chat.channel.shortId === chatShortIdQuery
+    );
     setSelectedChat(chat);
   };
 
   useEffect(() => {
-    if (router.query.c) {
+    if (router.query.chat) {
       setSelectedChannelFromRouterQuery();
     } else {
       setSelectedChat(undefined);
     }
-  }, [router.query.c, chats]);
+  }, [router.query.chat, chats]);
 
   const handleRoutePushToChannels = (shortId: string) => {
     if (selectedChat?.channel?.shortId !== shortId) {
-      router.push(`/channels/me?c=${shortId}`);
+      router.push(`/channels/me?chat=${shortId}`);
     }
   };
 
